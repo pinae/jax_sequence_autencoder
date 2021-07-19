@@ -4,3 +4,6 @@ tensorflow
 tensorflow-datasets
 jax
 jaxlib
+pandas
+jupyter
+altair
