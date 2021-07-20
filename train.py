@@ -7,8 +7,8 @@ import pandas as pd
 from jax import grad, jit, vmap
 
 
-learning_rate = 0.01
-num_epochs = 20
+learning_rate = 0.05
+num_epochs = 40
 batch_size = 512
 param_init_scale = 0.1
 
@@ -60,15 +60,18 @@ def update(params, train_data):
 
 
 def train():
-    params = build_model(input_size=32 * 32 * 3, latent_vector_sizes=[64])
+    global learning_rate
+    params = build_model(input_size=32 * 32 * 3, latent_vector_sizes=[1024, 256, 32])
     epoch_results = {"mean test loss": [], "mean SSIM score": []}
     test_performance(params, epoch_results)
     for epoch in range(num_epochs):
+        print("Learning rate:", learning_rate)
         for x in get_train_batches(batch_size=batch_size):
             y_batch = make_y_batch(x['image'])
             seq_batch = make_sequence_batch(x['image'])
             params = update(params, (seq_batch, y_batch))
         test_performance(params, epoch_results)
+        learning_rate = learning_rate * 0.7
     return epoch_results
 
 

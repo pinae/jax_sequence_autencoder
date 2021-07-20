@@ -16,6 +16,7 @@ def build_model(input_size, latent_vector_sizes=(32,), param_init_scale=1e-2):
         last_layer.stacked_unit = FeedbackUnit(
             latent_vector_size_base, latent_vector_size_next, params,
             param_init_scale=param_init_scale)
+        last_layer = last_layer.stacked_unit
     return params
 
 

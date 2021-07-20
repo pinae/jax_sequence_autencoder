@@ -39,7 +39,7 @@ class FeedbackUnit:
     def predict(self, params, input_activations):
         enc_activations = self.encoder.predict(params, input_activations)
         if self.stacked_unit:
-            next_layer_back_projection, next_layer_error_prediction = self.stacked_unit.predict(enc_activations)
+            next_layer_back_projection, next_layer_error_prediction = self.stacked_unit.predict(params, enc_activations)
             latent_activation = (enc_activations * (np.float32(1) - next_layer_error_prediction) +
                                  next_layer_back_projection * next_layer_error_prediction)
         else:
