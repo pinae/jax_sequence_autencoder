@@ -10,4 +10,6 @@ def sigmoid(x):
 
 
 def apr1(x):
+    if x < 0:
+        return np.float32(0)
     return np.float32(1) - np.float32(1) / (x + np.float32(1))
