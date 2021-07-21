@@ -6,6 +6,7 @@ data_dir = "data/cifar10"
 
 def get_train_batches(batch_size=10):
     dataset = tfds.load(name="cifar10", split="train", as_supervised=False, data_dir=data_dir)
+    dataset = dataset.take(1).cache().repeat(50000)
     dataset = dataset.batch(batch_size).prefetch(1)
     return tfds.as_numpy(dataset)
 
